@@ -5,14 +5,14 @@ namespace TddXt.SimpleNlp
 {
   public class RecognizedEntity : ValueType<RecognizedEntity>
   {
-    private readonly string _recognizedValue;
 
     public RecognizedEntity(EntityName entityName, string recognizedValue)
     {
       Entity = entityName;
-      _recognizedValue = recognizedValue;
+      RecognizedValue = recognizedValue;
     }
 
+    public string RecognizedValue { get; }
     public EntityName Entity { get; }
 
     public static RecognizedEntity Value(EntityName name, string recognizedValue)
@@ -23,12 +23,12 @@ namespace TddXt.SimpleNlp
     protected override IEnumerable<object> GetAllAttributesToBeUsedForEquality()
     {
       yield return Entity;
-      yield return _recognizedValue;
+      yield return RecognizedValue;
     }
 
     public override string ToString()
     {
-      return $"{nameof(Entity)}: {Entity}, {nameof(_recognizedValue)}: {_recognizedValue}";
+      return $"{nameof(Entity)}: {Entity}, {nameof(RecognizedValue)}: {RecognizedValue}";
     }
   }
 }
