@@ -19,6 +19,11 @@ namespace TddXt.SimpleNlp
     public void ApplyTo(TokensUnderPreparation tokensUnderPreparation)
     {
       tokensUnderPreparation.PartitionBasedOn(_pattern);
+
+      foreach (var synonym in _synonyms)
+      {
+        tokensUnderPreparation.PartitionBasedOn(synonym);
+      }
     }
 
     public void TryToMatch(string token, List<RecognizedEntity> recognizedEntities)
