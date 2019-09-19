@@ -207,9 +207,6 @@ namespace SimpleNlpSpecification
     }
 
     //TODO approximate matching
-    //TODO intent not matched
-    //TODO conflicts
-    //TODO what if no intent matches all entities?
     //TODO Intents with counts on entites (e.g. ENTITY_X, AtLeast(1.Times()))
   }
 }
