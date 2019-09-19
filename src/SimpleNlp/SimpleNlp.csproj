@@ -4,11 +4,34 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>TddXt.SimpleNlp</RootNamespace>
     <AssemblyName>TddXt.SimpleNlp</AssemblyName>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.1.0</Version>
+    <PackageId>SimpleNlp</PackageId>
+    <Authors>Grzegorz Gałęzowski</Authors>
+    <Company />
+    <Product>SimpleNlp</Product>
+    <Description>Very simple, bare-bone, in-memory NLP analyzer for bot usage. Intents and entities. Simple algorithm - no machine learning.</Description>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/grzesiek-galezowski/simple-nlp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/grzesiek-galezowski/simple-nlp</RepositoryUrl>
+    <RepositoryType></RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
     <PackageReference Include="Value" Version="1.1.0.1" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

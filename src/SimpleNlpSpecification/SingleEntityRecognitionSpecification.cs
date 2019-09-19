@@ -6,8 +6,6 @@ namespace SimpleNlpSpecification
 {
   public class SingleEntityRecognitionSpecification
   {
-    //TODO conflicts?
-    
     [Theory]
     [InlineData("DRIVER_LICENSE", "driver license", "driver license")]
     [InlineData("DRIVER_LICENSE", "driver license", "Driver License")] //does it ignore letter casing?
@@ -94,6 +92,24 @@ namespace SimpleNlpSpecification
       var result = model.Recognize("Trolololo");
 
       result.Entities.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void ShouldSeparateDigitsWhenDetectingEntities()
+    {
+      var model = new RecognitionModel();
+      model.AddEntity(EntityName.Value("digit"), "1");
+      model.AddEntity(EntityName.Value("digit"), "2");
+      model.AddEntity(EntityName.Value("digit"), "3");
+
+      var result = model.Recognize("123");
+
+      result.Entities.Should().BeEquivalentTo(new []
+      {
+        new RecognizedEntity(new EntityName("digit"), "1"), 
+        new RecognizedEntity(new EntityName("digit"), "2"), 
+        new RecognizedEntity(new EntityName("digit"), "3"), 
+      }, options => options.WithStrictOrdering());
     }
 
   }

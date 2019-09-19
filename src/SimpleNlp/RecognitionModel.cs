@@ -49,6 +49,18 @@ namespace TddXt.SimpleNlp
 
     private string Normalize(string text)
     {
+      text = SeparateDigits(text);
+      text = EliminateMultipleSpaces(text);
+      return text;
+    }
+
+    private string SeparateDigits(string text)
+    {
+      return Regex.Replace(text, "([0-9])", m => " " + m.Groups[0] + " ");
+    }
+
+    private static string EliminateMultipleSpaces(string text)
+    {
       return new Regex(@"\s+").Replace(text, " ");
     }
 
