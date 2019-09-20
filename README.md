@@ -48,7 +48,6 @@ recognitionResult3.Entities.Should().BeEquivalentTo(new []
     new RecognizedEntity(EntityName.Value(borrowEntity), "borrow"), 
     new RecognizedEntity(EntityName.Value(filmEntity), "film"), 
   }, options => options.WithStrictOrdering());
-
 recognitionResult4.TopIntent.Should().Be("RETURN_FILM");
 recognitionResult4.Entities.Should().BeEquivalentTo(new []
   {
