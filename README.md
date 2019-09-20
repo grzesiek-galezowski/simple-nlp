@@ -31,29 +31,29 @@ var recognitionResult4 = model.Recognize("Here, I'm returning the movie");
 //THEN
 recognitionResult1.TopIntent.Should().Be("BORROW_BOOK");
 recognitionResult1.Entities.Should().BeEquivalentTo(new []
-	{
-		new RecognizedEntity(EntityName.Value(borrowEntity), "borrow"), 
-		new RecognizedEntity(EntityName.Value(bookEntity), "book"), 
-	}, options => options.WithStrictOrdering());
+  {
+    new RecognizedEntity(EntityName.Value(borrowEntity), "borrow"), 
+    new RecognizedEntity(EntityName.Value(bookEntity), "book"), 
+  }, options => options.WithStrictOrdering());
 
 recognitionResult2.TopIntent.Should().Be("RETURN_BOOK");
 recognitionResult2.Entities.Should().BeEquivalentTo(new []
-	{
-		new RecognizedEntity(EntityName.Value(returnEntity), "return"), 
-		new RecognizedEntity(EntityName.Value(bookEntity), "book"), 
-	}, options => options.WithStrictOrdering());
+  {
+    new RecognizedEntity(EntityName.Value(returnEntity), "return"), 
+    new RecognizedEntity(EntityName.Value(bookEntity), "book"), 
+  }, options => options.WithStrictOrdering());
 recognitionResult3.TopIntent.Should().Be("BORROW_FILM");
 recognitionResult3.Entities.Should().BeEquivalentTo(new []
-	{
-		new RecognizedEntity(EntityName.Value(borrowEntity), "borrow"), 
-		new RecognizedEntity(EntityName.Value(filmEntity), "film"), 
-	}, options => options.WithStrictOrdering());
+  {
+    new RecognizedEntity(EntityName.Value(borrowEntity), "borrow"), 
+    new RecognizedEntity(EntityName.Value(filmEntity), "film"), 
+  }, options => options.WithStrictOrdering());
 
 recognitionResult4.TopIntent.Should().Be("RETURN_FILM");
 recognitionResult4.Entities.Should().BeEquivalentTo(new []
-	{
-		new RecognizedEntity(EntityName.Value(returnEntity), "return"), 
-		new RecognizedEntity(EntityName.Value(filmEntity), "film"), 
-	}, options => options.WithStrictOrdering());
+  {
+    new RecognizedEntity(EntityName.Value(returnEntity), "return"), 
+    new RecognizedEntity(EntityName.Value(filmEntity), "film"), 
+  }, options => options.WithStrictOrdering());
 }
 ```
