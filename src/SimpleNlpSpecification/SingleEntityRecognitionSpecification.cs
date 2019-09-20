@@ -16,7 +16,7 @@ namespace SimpleNlpSpecification
     public void ShouldBeAbleToRecognizeSingleEntity(string entityName, string entityValue, string text)
     {
       var model = new RecognitionModel();
-      model.AddEntity(EntityName.Value(entityName), entityValue);
+      model.AddEntity(entityName, entityValue);
 
       var result = model.Recognize(text);
 
@@ -28,7 +28,7 @@ namespace SimpleNlpSpecification
     {
       //GIVEN
       var model = new RecognitionModel();
-      model.AddEntity(EntityName.Value("PLATE"), "plate");
+      model.AddEntity("PLATE", "plate");
 
       //WHEN
       var result1 = model.Recognize("plateau");
@@ -44,7 +44,7 @@ namespace SimpleNlpSpecification
     {
       //GIVEN
       var model = new RecognitionModel();
-      model.AddEntity(EntityName.Value("PLATE"), "plate", new [] { "steel" });
+      model.AddEntity("PLATE", "plate", new [] { "steel" });
 
       //WHEN
       var result1 = model.Recognize("steel");
@@ -58,9 +58,9 @@ namespace SimpleNlpSpecification
     {
       //GIVEN
       var model = new RecognitionModel();
-      model.AddEntity(EntityName.Value("DRIVER_LICENSE"), "driver license");
-      model.AddEntity(EntityName.Value("DRIVER_LICENSE"), "driver licence");
-      model.AddEntity(EntityName.Value("DRIVER_LICENSE"), "driving license");
+      model.AddEntity("DRIVER_LICENSE", "driver license");
+      model.AddEntity("DRIVER_LICENSE", "driver licence");
+      model.AddEntity("DRIVER_LICENSE", "driving license");
 
       //WHEN
       var result1 = model.Recognize("driver license");
@@ -87,7 +87,7 @@ namespace SimpleNlpSpecification
     public void ShouldReturnEmptyListWhenNoTextDoesNotMatch()
     {
       var model = new RecognitionModel();
-      model.AddEntity(EntityName.Value("DRIVER_LICENSE"), "driver license");
+      model.AddEntity("DRIVER_LICENSE", "driver license");
 
       var result = model.Recognize("Trolololo");
 
@@ -98,17 +98,17 @@ namespace SimpleNlpSpecification
     public void ShouldSeparateDigitsWhenDetectingEntities()
     {
       var model = new RecognitionModel();
-      model.AddEntity(EntityName.Value("digit"), "1");
-      model.AddEntity(EntityName.Value("digit"), "2");
-      model.AddEntity(EntityName.Value("digit"), "3");
+      model.AddEntity("digit", "1");
+      model.AddEntity("digit", "2");
+      model.AddEntity("digit", "3");
 
       var result = model.Recognize("123");
 
       result.Entities.Should().BeEquivalentTo(new []
       {
-        new RecognizedEntity(new EntityName("digit"), "1"), 
-        new RecognizedEntity(new EntityName("digit"), "2"), 
-        new RecognizedEntity(new EntityName("digit"), "3"), 
+        new RecognizedEntity(EntityName.Value("digit"), "1"), 
+        new RecognizedEntity(EntityName.Value("digit"), "2"), 
+        new RecognizedEntity(EntityName.Value("digit"), "3"), 
       }, options => options.WithStrictOrdering());
     }
 

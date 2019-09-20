@@ -7,10 +7,10 @@ Simple natural language processing library, designed to be used by simple chat b
 //GIVEN
 var model = new RecognitionModel();
 
-var borrowEntity = EntityName.Value("Borrow");
-var returnEntity = EntityName.Value("Return");
-var bookEntity = EntityName.Value("Book");
-var filmEntity = EntityName.Value("Film");
+var borrowEntity = "Borrow";
+var returnEntity = "Return";
+var bookEntity =   "Book";
+var filmEntity =   "Film";
 
 model.AddEntity(borrowEntity, "borrow");
 model.AddEntity(returnEntity, "return", new []{"returning"});
@@ -31,28 +31,29 @@ var recognitionResult4 = model.Recognize("Here, I'm returning the movie");
 //THEN
 recognitionResult1.TopIntent.Should().Be("BORROW_BOOK");
 recognitionResult1.Entities.Should().BeEquivalentTo(new []
-{
-  new RecognizedEntity(borrowEntity, "borrow"), 
-  new RecognizedEntity(bookEntity, "book"), 
-}, options => options.WithStrictOrdering());
+	{
+		new RecognizedEntity(EntityName.Value(borrowEntity), "borrow"), 
+		new RecognizedEntity(EntityName.Value(bookEntity), "book"), 
+	}, options => options.WithStrictOrdering());
 
 recognitionResult2.TopIntent.Should().Be("RETURN_BOOK");
 recognitionResult2.Entities.Should().BeEquivalentTo(new []
-{
-  new RecognizedEntity(returnEntity, "return"), 
-  new RecognizedEntity(bookEntity, "book"), 
-}, options => options.WithStrictOrdering());
+	{
+		new RecognizedEntity(EntityName.Value(returnEntity), "return"), 
+		new RecognizedEntity(EntityName.Value(bookEntity), "book"), 
+	}, options => options.WithStrictOrdering());
 recognitionResult3.TopIntent.Should().Be("BORROW_FILM");
 recognitionResult3.Entities.Should().BeEquivalentTo(new []
-{
-  new RecognizedEntity(borrowEntity, "borrow"), 
-  new RecognizedEntity(filmEntity, "film"), 
-}, options => options.WithStrictOrdering());
+	{
+		new RecognizedEntity(EntityName.Value(borrowEntity), "borrow"), 
+		new RecognizedEntity(EntityName.Value(filmEntity), "film"), 
+	}, options => options.WithStrictOrdering());
 
 recognitionResult4.TopIntent.Should().Be("RETURN_FILM");
 recognitionResult4.Entities.Should().BeEquivalentTo(new []
-{
-  new RecognizedEntity(returnEntity, "return"), 
-  new RecognizedEntity(filmEntity, "film"), 
-}, options => options.WithStrictOrdering());
+	{
+		new RecognizedEntity(EntityName.Value(returnEntity), "return"), 
+		new RecognizedEntity(EntityName.Value(filmEntity), "film"), 
+	}, options => options.WithStrictOrdering());
+}
 ```

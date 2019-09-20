@@ -12,7 +12,7 @@ namespace SimpleNlpSpecification
     public void ShouldBeAbleToRecognizeTheSameEntityMultipleTimes()
     {
       var model = new RecognitionModel();
-      model.AddEntity(EntityName.Value("DRIVER_LICENSE"), "driver license");
+      model.AddEntity("DRIVER_LICENSE", "driver license");
 
       var result = model.Recognize("driver license driver license");
 
@@ -28,8 +28,8 @@ namespace SimpleNlpSpecification
     public void ShouldBeAbleToRecognizeTheSameEntityMultipleTimesWithSeveralPatterns()
     {
       var model = new RecognitionModel();
-      model.AddEntity(EntityName.Value("DRIVER_LICENSE"), "driver license");
-      model.AddEntity(EntityName.Value("DRIVER_LICENSE"), "driver's license");
+      model.AddEntity("DRIVER_LICENSE", "driver license");
+      model.AddEntity("DRIVER_LICENSE", "driver's license");
 
       var result = model.Recognize("driver license driver's license");
 
@@ -45,8 +45,8 @@ namespace SimpleNlpSpecification
     public void ShouldBeAbleToRecognizeTheDifferentEntities()
     {
       var model = new RecognitionModel();
-      model.AddEntity(EntityName.Value("DRIVER_LICENSE"), "driver license");
-      model.AddEntity(EntityName.Value("LICENSE_PLATE"), "license plate");
+      model.AddEntity("DRIVER_LICENSE", "driver license");
+      model.AddEntity("LICENSE_PLATE", "license plate");
 
       var result = model.Recognize("driver license license plate driver license");
 
@@ -62,21 +62,21 @@ namespace SimpleNlpSpecification
     public void ShouldBeAbleToRecognizeTheDifferentEntities2()
     {
       var model = new RecognitionModel();
-      model.AddEntity(EntityName.Value("DRIVER_LICENSE"), "driver license");
-      model.AddEntity(EntityName.Value("nato"), "alpha");
-      model.AddEntity(EntityName.Value("nato"), "bravo");
-      model.AddEntity(EntityName.Value("nato"), "charlie");
-      model.AddEntity(EntityName.Value("digit"), "1");
-      model.AddEntity(EntityName.Value("digit"), "2");
-      model.AddEntity(EntityName.Value("digit"), "3");
-      model.AddEntity(EntityName.Value("digit"), "4");
-      model.AddEntity(EntityName.Value("digit"), "5");
-      model.AddEntity(EntityName.Value("digit"), "6");
-      model.AddEntity(EntityName.Value("digit"), "7");
-      model.AddEntity(EntityName.Value("digit"), "8");
-      model.AddEntity(EntityName.Value("digit"), "9");
-      model.AddEntity(EntityName.Value("digit"), "0");
-      model.AddEntity(EntityName.Value("state"), "New York");
+      model.AddEntity("DRIVER_LICENSE", "driver license");
+      model.AddEntity("nato", "alpha");
+      model.AddEntity("nato", "bravo");
+      model.AddEntity("nato", "charlie");
+      model.AddEntity("digit", "1");
+      model.AddEntity("digit", "2");
+      model.AddEntity("digit", "3");
+      model.AddEntity("digit", "4");
+      model.AddEntity("digit", "5");
+      model.AddEntity("digit", "6");
+      model.AddEntity("digit", "7");
+      model.AddEntity("digit", "8");
+      model.AddEntity("digit", "9");
+      model.AddEntity("digit", "0");
+      model.AddEntity("state", "New York");
 
       var result = model.Recognize("Check driver license New York 1 2 alpha bravo 5 6");
 

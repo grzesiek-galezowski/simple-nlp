@@ -1,79 +1,31 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace TddXt.SimpleNlp
 {
   public class RecognitionModel
   {
-    private const string IntentNone = "None";
-    private readonly List<EntitySpecification> _entitySpecifications = new List<EntitySpecification>();
-    private readonly List<IntentSpecification> _intentSpecifications = new List<IntentSpecification>();
-
-    public void AddEntity(EntityName entityName, string value)
+    private readonly InnerRecognitionModel _recognitionModel = new InnerRecognitionModel(); 
+    public void AddEntity(string entityName, string value)
     {
-      _entitySpecifications.Add(new EntitySpecification(entityName, value, new string[] {}));
+      _recognitionModel.AddEntity(EntityName.Value(entityName), value);
     }
 
-    public void AddEntity(EntityName entityName, string value, string[] synonyms)
+    public void AddEntity(string entityName, string value, string[] synonyms)
     {
-      _entitySpecifications.Add(new EntitySpecification(entityName, value, synonyms));
+      _recognitionModel.AddEntity(EntityName.Value(entityName), value, synonyms);
     }
 
-    public void AddIntent(string intentName, IEnumerable<EntityName> entityNames)
+    public void AddIntent(string intentName, IEnumerable<string> entityNames)
     {
-      _intentSpecifications.Add(new IntentSpecification(intentName, entityNames));
+      _recognitionModel.AddIntent(intentName, entityNames.Select(EntityName.Value));
     }
 
     public RecognitionResult Recognize(string text)
     {
-      text = Normalize(text);
-      var tokensUnderPreparation = Tokenize(text);
-      var recognizedEntities = tokensUnderPreparation.TranslateToEntitiesUsing(_entitySpecifications);
-
-      return new RecognitionResult(recognizedEntities.ToImmutableList(), TopIntent(recognizedEntities));
-    }
-
-    private string TopIntent(IEnumerable<RecognizedEntity> recognizedEntities)
-    {
-      foreach (var intentSpec in _intentSpecifications)
-      {
-        if (intentSpec.IsMatchedBy(recognizedEntities))
-        {
-          return intentSpec.IntentName;
-        }
-      }
-
-      return IntentNone;
-    }
-
-    private string Normalize(string text)
-    {
-      text = SeparateDigits(text);
-      text = EliminateMultipleSpaces(text);
-      return text;
-    }
-
-    private string SeparateDigits(string text)
-    {
-      return Regex.Replace(text, "([0-9])", m => " " + m.Groups[0] + " ");
-    }
-
-    private static string EliminateMultipleSpaces(string text)
-    {
-      return new Regex(@"\s+").Replace(text, " ");
-    }
-
-    private TokensUnderPreparation Tokenize(string text)
-    {
-      var tokensUnderPreparation = TokensUnderPreparation.CreateInitial(text);
-
-      foreach (var entitySpecification in _entitySpecifications)
-      {
-        entitySpecification.ApplyTo(tokensUnderPreparation);
-      }
-
-      return tokensUnderPreparation;
+      return _recognitionModel.Recognize(text);
     }
 
   }

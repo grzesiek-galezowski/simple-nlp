@@ -27,8 +27,8 @@ namespace SimpleNlpSpecification
       //GIVEN
       var model = new RecognitionModel();
       
-      model.AddEntity(EntityName.Value("NO"), "no");
-      model.AddIntent("INTENT_REFUSE", new [] { EntityName.Value("NO") });
+      model.AddEntity("NO", "no");
+      model.AddIntent("INTENT_REFUSE", new [] { "NO" });
 
       //WHEN
       var recognitionResult = model.Recognize("Trolololo");
@@ -46,9 +46,9 @@ namespace SimpleNlpSpecification
       //GIVEN
       var model = new RecognitionModel();
       
-      model.AddEntity(EntityName.Value("YES"), "yes");
-      model.AddEntity(EntityName.Value("NO"), "no");
-      var entityNames = new [] { EntityName.Value("YES")};
+      model.AddEntity("YES", "yes");
+      model.AddEntity("NO", "no");
+      var entityNames = new [] { "YES"};
       model.AddIntent("INTENT_YES", entityNames);
 
       //WHEN
@@ -64,9 +64,9 @@ namespace SimpleNlpSpecification
       //GIVEN
       var model = new RecognitionModel();
       
-      model.AddEntity(EntityName.Value("YES"), "yes");
-      model.AddEntity(EntityName.Value("PLEASE"), "please");
-      model.AddIntent("INTENT_YES", new[] { EntityName.Value("YES"), EntityName.Value("PLEASE")});
+      model.AddEntity("YES", "yes");
+      model.AddEntity("PLEASE", "please");
+      model.AddIntent("INTENT_YES", new[] { "YES", "PLEASE"});
 
       //WHEN
       var recognitionResult = model.Recognize("yes, please");
@@ -81,10 +81,10 @@ namespace SimpleNlpSpecification
       //GIVEN
       var model = new RecognitionModel();
       
-      model.AddEntity(EntityName.Value("YES"), "yes");
-      model.AddEntity(EntityName.Value("PLEASE"), "please");
-      model.AddIntent("INTENT_YES1", new[] { EntityName.Value("YES"), EntityName.Value("PLEASE")});
-      model.AddIntent("INTENT_YES2", new[] { EntityName.Value("YES"), EntityName.Value("PLEASE")});
+      model.AddEntity("YES", "yes");
+      model.AddEntity("PLEASE", "please");
+      model.AddIntent("INTENT_YES1", new[] { "YES", "PLEASE"});
+      model.AddIntent("INTENT_YES2", new[] { "YES", "PLEASE"});
 
       //WHEN
       var recognitionResult = model.Recognize("yes, please");
@@ -99,14 +99,14 @@ namespace SimpleNlpSpecification
       //GIVEN
       var model = new RecognitionModel();
       
-      model.AddEntity(EntityName.Value("YES"), "yes");
-      model.AddEntity(EntityName.Value("NO"), "no");
-      model.AddEntity(EntityName.Value("START_OVER"), "start over");
-      model.AddEntity(EntityName.Value("GAME_OVER"), "game over");
-      model.AddIntent("INTENT_YES", new[] { EntityName.Value("YES") });
-      model.AddIntent("INTENT_NO", new[] { EntityName.Value("NO")});
-      model.AddIntent("INTENT_START_OVER", new[] { EntityName.Value("START_OVER")});
-      model.AddIntent("INTENT_GAME_OVER", new[] { EntityName.Value("GAME_OVER")});
+      model.AddEntity("YES", "yes");
+      model.AddEntity("NO", "no");
+      model.AddEntity("START_OVER", "start over");
+      model.AddEntity("GAME_OVER", "game over");
+      model.AddIntent("INTENT_YES", new[] { "YES" });
+      model.AddIntent("INTENT_NO", new[] { "NO"});
+      model.AddIntent("INTENT_START_OVER", new[] { "START_OVER"});
+      model.AddIntent("INTENT_GAME_OVER", new[] { "GAME_OVER"});
 
       //WHEN
       var recognitionResult1 = model.Recognize("yes, please");
@@ -127,14 +127,14 @@ namespace SimpleNlpSpecification
       //GIVEN
       var model = new RecognitionModel();
       
-      model.AddEntity(EntityName.Value("YES"), "yes");
-      model.AddEntity(EntityName.Value("NO"), "no");
-      model.AddEntity(EntityName.Value("START_OVER"), "start over");
-      model.AddEntity(EntityName.Value("GAME_OVER"), "game over");
-      model.AddIntent("INTENT", new[] { EntityName.Value("YES") });
-      model.AddIntent("INTENT", new[] { EntityName.Value("NO")});
-      model.AddIntent("INTENT", new[] { EntityName.Value("START_OVER")});
-      model.AddIntent("INTENT_GAME_OVER", new[] { EntityName.Value("GAME_OVER")});
+      model.AddEntity("YES", "yes");
+      model.AddEntity("NO", "no");
+      model.AddEntity("START_OVER", "start over");
+      model.AddEntity("GAME_OVER", "game over");
+      model.AddIntent("INTENT", new[] { "YES" });
+      model.AddIntent("INTENT", new[] { "NO"});
+      model.AddIntent("INTENT", new[] { "START_OVER"});
+      model.AddIntent("INTENT_GAME_OVER", new[] { "GAME_OVER"});
 
       //WHEN
       var recognitionResult1 = model.Recognize("yes, please");
@@ -156,10 +156,10 @@ namespace SimpleNlpSpecification
       //GIVEN
       var model = new RecognitionModel();
 
-      var borrowEntity = EntityName.Value("Borrow");
-      var returnEntity = EntityName.Value("Return");
-      var bookEntity = EntityName.Value("Book");
-      var filmEntity = EntityName.Value("Film");
+      var borrowEntity = "Borrow";
+      var returnEntity = "Return";
+      var bookEntity =   "Book";
+      var filmEntity =   "Film";
 
       model.AddEntity(borrowEntity, "borrow");
       model.AddEntity(returnEntity, "return", new []{"returning"});
@@ -181,28 +181,28 @@ namespace SimpleNlpSpecification
       recognitionResult1.TopIntent.Should().Be("BORROW_BOOK");
       recognitionResult1.Entities.Should().BeEquivalentTo(new []
       {
-        new RecognizedEntity(borrowEntity, "borrow"), 
-        new RecognizedEntity(bookEntity, "book"), 
+        new RecognizedEntity(EntityName.Value(borrowEntity), "borrow"), 
+        new RecognizedEntity(EntityName.Value(bookEntity), "book"), 
       }, options => options.WithStrictOrdering());
 
       recognitionResult2.TopIntent.Should().Be("RETURN_BOOK");
       recognitionResult2.Entities.Should().BeEquivalentTo(new []
       {
-        new RecognizedEntity(returnEntity, "return"), 
-        new RecognizedEntity(bookEntity, "book"), 
+        new RecognizedEntity(EntityName.Value(returnEntity), "return"), 
+        new RecognizedEntity(EntityName.Value(bookEntity), "book"), 
       }, options => options.WithStrictOrdering());
       recognitionResult3.TopIntent.Should().Be("BORROW_FILM");
       recognitionResult3.Entities.Should().BeEquivalentTo(new []
       {
-        new RecognizedEntity(borrowEntity, "borrow"), 
-        new RecognizedEntity(filmEntity, "film"), 
+        new RecognizedEntity(EntityName.Value(borrowEntity), "borrow"), 
+        new RecognizedEntity(EntityName.Value(filmEntity), "film"), 
       }, options => options.WithStrictOrdering());
 
       recognitionResult4.TopIntent.Should().Be("RETURN_FILM");
       recognitionResult4.Entities.Should().BeEquivalentTo(new []
       {
-        new RecognizedEntity(returnEntity, "return"), 
-        new RecognizedEntity(filmEntity, "film"), 
+        new RecognizedEntity(EntityName.Value(returnEntity), "return"), 
+        new RecognizedEntity(EntityName.Value(filmEntity), "film"), 
       }, options => options.WithStrictOrdering());
     }
 
