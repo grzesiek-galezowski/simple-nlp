@@ -5,7 +5,7 @@
     <RootNamespace>TddXt.SimpleNlp</RootNamespace>
     <AssemblyName>TddXt.SimpleNlp</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.3.1</Version>
+    <Version>0.3.2</Version>
     <PackageId>SimpleNlp</PackageId>
     <Authors>Grzegorz Gałęzowski</Authors>
     <Company />

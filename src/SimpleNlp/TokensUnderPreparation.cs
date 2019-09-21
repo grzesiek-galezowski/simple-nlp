@@ -16,7 +16,7 @@ namespace TddXt.SimpleNlp
       var newTokens = new List<string>();
       foreach (var token in _tokens)
       {
-        var strings = token.SplitAndKeep(entityForm.ToString());
+        var strings = entityForm.Tokenize(token);
         newTokens.AddRange(strings);
       }
 

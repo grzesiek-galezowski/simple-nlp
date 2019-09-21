@@ -9,15 +9,15 @@ namespace SimpleNlpSpecification
     [Fact]
     public void ShouldTokenizeStrings()
     {
-      "a b c".SplitAndKeep("a").Should().BeEquivalentTo(new [] {"", "a", "b c"}, options => options.WithStrictOrdering());
-      "a b c".SplitAndKeep("b").Should().BeEquivalentTo(new [] {"a", "b", "c"}, options => options.WithStrictOrdering());
-      "a b c".SplitAndKeep("c").Should().BeEquivalentTo(new [] {"a b", "c", ""}, options => options.WithStrictOrdering());
-      "a".SplitAndKeep("a").Should().BeEquivalentTo(new [] {"", "a", ""}, options => options.WithStrictOrdering());
-      "abc".SplitAndKeep("a").Should().BeEquivalentTo(new [] {"abc"}, options => options.WithStrictOrdering());
-      "abc".SplitAndKeep("b").Should().BeEquivalentTo(new [] {"abc"}, options => options.WithStrictOrdering());
-      "abc".SplitAndKeep("c").Should().BeEquivalentTo(new [] {"abc"}, options => options.WithStrictOrdering());
-      "".SplitAndKeep("").Should().BeEquivalentTo(new [] {"", "", ""}, options => options.WithStrictOrdering());
-      "driver's license".SplitAndKeep("driver's").Should().BeEquivalentTo(new [] {"", "driver's", "license"}, options => options.WithStrictOrdering());
+      EntityForm.Value("a").Tokenize("a b c").Should().BeEquivalentTo(new [] {"", "a", "b c"}, options => options.WithStrictOrdering());
+      EntityForm.Value("b").Tokenize("a b c").Should().BeEquivalentTo(new [] {"a", "b", "c"}, options => options.WithStrictOrdering());
+      EntityForm.Value("c").Tokenize("a b c").Should().BeEquivalentTo(new [] {"a b", "c", ""}, options => options.WithStrictOrdering());
+      EntityForm.Value("a").Tokenize("a").Should().BeEquivalentTo(new [] {"", "a", ""}, options => options.WithStrictOrdering());
+      EntityForm.Value("a").Tokenize("abc").Should().BeEquivalentTo(new [] {"abc"}, options => options.WithStrictOrdering());
+      EntityForm.Value("b").Tokenize("abc").Should().BeEquivalentTo(new [] {"abc"}, options => options.WithStrictOrdering());
+      EntityForm.Value("c").Tokenize("abc").Should().BeEquivalentTo(new [] {"abc"}, options => options.WithStrictOrdering());
+      EntityForm.Value("").Tokenize("").Should().BeEquivalentTo(new [] {"", "", ""}, options => options.WithStrictOrdering());
+      EntityForm.Value("driver's").Tokenize("driver's license").Should().BeEquivalentTo(new [] {"", "driver's", "license"}, options => options.WithStrictOrdering());
     }
   }
 }

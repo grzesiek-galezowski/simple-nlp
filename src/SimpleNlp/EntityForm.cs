@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Value;
 
 namespace TddXt.SimpleNlp
@@ -30,6 +31,12 @@ namespace TddXt.SimpleNlp
     public bool IsMatchedBy(string token)
     {
       return _value.Equals(token, StringComparison.InvariantCultureIgnoreCase);
+    }
+
+    public IEnumerable<string> Tokenize(string text)
+    {
+      var forbiddenDelimiter = "[^0-9a-zA-Z'`]";
+      return Regex.Split(text, $"(?:{forbiddenDelimiter}|^)({this})(?:{forbiddenDelimiter}|$)", RegexOptions.IgnoreCase);
     }
   }
 }
