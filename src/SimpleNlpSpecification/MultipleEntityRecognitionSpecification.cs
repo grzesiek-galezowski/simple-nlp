@@ -6,8 +6,6 @@ namespace SimpleNlpSpecification
 {
   public class MultipleEntityRecognitionSpecification
   {
-    //TODO number recognition (e.g. 1234 => one two three four?)
-    
     [Fact]
     public void ShouldBeAbleToRecognizeTheSameEntityMultipleTimes()
     {
@@ -16,11 +14,10 @@ namespace SimpleNlpSpecification
 
       var result = model.Recognize("driver license driver license");
 
-      result.Entities.Should().HaveCount(2);
       result.Entities.Should().BeEquivalentTo(new[]
       {
-        RecognizedEntity.Value(EntityName.Value("DRIVER_LICENSE"), "driver license"),
-        RecognizedEntity.Value(EntityName.Value("DRIVER_LICENSE"), "driver license"),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("DRIVER_LICENSE"), EntityForm.Value("driver license")),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("DRIVER_LICENSE"), EntityForm.Value("driver license")),
       }, options => options.WithStrictOrdering());
     }
 
@@ -33,11 +30,10 @@ namespace SimpleNlpSpecification
 
       var result = model.Recognize("driver license driver's license");
 
-      result.Entities.Should().HaveCount(2);
       result.Entities.Should().BeEquivalentTo(new[]
       {
-        RecognizedEntity.Value(EntityName.Value("DRIVER_LICENSE"), "driver license"),
-        RecognizedEntity.Value(EntityName.Value("DRIVER_LICENSE"), "driver's license"),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("DRIVER_LICENSE"), EntityForm.Value("driver license")),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("DRIVER_LICENSE"), EntityForm.Value("driver's license")),
       }, options => options.WithStrictOrdering());
     }
 
@@ -52,9 +48,9 @@ namespace SimpleNlpSpecification
 
       result.Entities.Should().BeEquivalentTo(new[]
       {
-        RecognizedEntity.Value(EntityName.Value("DRIVER_LICENSE"), "driver license"),
-        RecognizedEntity.Value(EntityName.Value("LICENSE_PLATE"), "license plate"),
-        RecognizedEntity.Value(EntityName.Value("DRIVER_LICENSE"), "driver license"),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("DRIVER_LICENSE"), EntityForm.Value("driver license")),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("LICENSE_PLATE") ,  EntityForm.Value("license plate")),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("DRIVER_LICENSE"), EntityForm.Value("driver license")),
       }, options => options.WithStrictOrdering());
     }
     
@@ -83,14 +79,14 @@ namespace SimpleNlpSpecification
       result.Entities.Should().HaveCount(8);
       result.Entities.Should().BeEquivalentTo(new[]
       {
-        RecognizedEntity.Value(EntityName.Value("DRIVER_LICENSE"), "driver license"),
-        RecognizedEntity.Value(EntityName.Value("state"), "New York"),
-        RecognizedEntity.Value(EntityName.Value("digit"), "1"),
-        RecognizedEntity.Value(EntityName.Value("digit"), "2"),
-        RecognizedEntity.Value(EntityName.Value("nato"), "alpha"),
-        RecognizedEntity.Value(EntityName.Value("nato"), "bravo"),
-        RecognizedEntity.Value(EntityName.Value("digit"), "5"),
-        RecognizedEntity.Value(EntityName.Value("digit"), "6"),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("DRIVER_LICENSE"), EntityForm.Value("driver license")),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("state"), EntityForm.Value("New York")),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("digit"), EntityForm.Value("1")),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("digit"), EntityForm.Value("2")),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("nato"),  EntityForm.Value("alpha")),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("nato"),  EntityForm.Value("bravo")),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("digit"), EntityForm.Value("5")),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("digit"), EntityForm.Value("6")),
       }, options => options.WithStrictOrdering());
     }
 

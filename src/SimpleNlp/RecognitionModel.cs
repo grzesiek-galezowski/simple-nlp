@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace TddXt.SimpleNlp
 {
@@ -10,12 +8,12 @@ namespace TddXt.SimpleNlp
     private readonly InnerRecognitionModel _recognitionModel = new InnerRecognitionModel(); 
     public void AddEntity(string entityName, string value)
     {
-      _recognitionModel.AddEntity(EntityName.Value(entityName), value);
+      _recognitionModel.AddEntity(EntityName.Value(entityName), EntityForm.Value(value));
     }
 
     public void AddEntity(string entityName, string value, string[] synonyms)
     {
-      _recognitionModel.AddEntity(EntityName.Value(entityName), value, synonyms);
+      _recognitionModel.AddEntity(EntityName.Value(entityName), EntityForm.Value(value), synonyms.Select(EntityForm.Value).ToArray());
     }
 
     public void AddIntent(string intentName, IEnumerable<string> entityNames)

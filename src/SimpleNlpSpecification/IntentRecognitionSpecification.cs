@@ -76,7 +76,7 @@ namespace SimpleNlpSpecification
     }
 
     [Fact]
-    public void ShouldReturnFirstExactlyMatchedIntent()
+    public void ShouldReturnFirstExactlyMatchedIntent() //bug remove?
     {
       //GIVEN
       var model = new RecognitionModel();
@@ -181,28 +181,28 @@ namespace SimpleNlpSpecification
       recognitionResult1.TopIntent.Should().Be("BORROW_BOOK");
       recognitionResult1.Entities.Should().BeEquivalentTo(new []
       {
-        new RecognizedEntity(EntityName.Value(borrowEntity), "borrow"), 
-        new RecognizedEntity(EntityName.Value(bookEntity), "book"), 
+        RecognizedEntity.ByCanonicalForm(EntityName.Value(borrowEntity), EntityForm.Value("borrow")), 
+        RecognizedEntity.ByCanonicalForm(EntityName.Value(bookEntity), EntityForm.Value("book")), 
       }, options => options.WithStrictOrdering());
 
       recognitionResult2.TopIntent.Should().Be("RETURN_BOOK");
       recognitionResult2.Entities.Should().BeEquivalentTo(new []
       {
-        new RecognizedEntity(EntityName.Value(returnEntity), "return"), 
-        new RecognizedEntity(EntityName.Value(bookEntity), "book"), 
+        RecognizedEntity.ByCanonicalForm(EntityName.Value(returnEntity), EntityForm.Value("return")), 
+        RecognizedEntity.ByCanonicalForm(EntityName.Value(bookEntity), EntityForm.Value("book")), 
       }, options => options.WithStrictOrdering());
       recognitionResult3.TopIntent.Should().Be("BORROW_FILM");
       recognitionResult3.Entities.Should().BeEquivalentTo(new []
       {
-        new RecognizedEntity(EntityName.Value(borrowEntity), "borrow"), 
-        new RecognizedEntity(EntityName.Value(filmEntity), "film"), 
+        RecognizedEntity.ByCanonicalForm(EntityName.Value(borrowEntity), EntityForm.Value("borrow")), 
+        RecognizedEntity.ByCanonicalForm(EntityName.Value(filmEntity), EntityForm.Value("film")), 
       }, options => options.WithStrictOrdering());
 
       recognitionResult4.TopIntent.Should().Be("RETURN_FILM");
       recognitionResult4.Entities.Should().BeEquivalentTo(new []
       {
-        new RecognizedEntity(EntityName.Value(returnEntity), "return"), 
-        new RecognizedEntity(EntityName.Value(filmEntity), "film"), 
+        RecognizedEntity.Value(EntityName.Value(returnEntity), EntityForm.Value("returning"), EntityForm.Value("return")), 
+        RecognizedEntity.Value(EntityName.Value(filmEntity), EntityForm.Value("movie"), EntityForm.Value("film")), 
       }, options => options.WithStrictOrdering());
     }
 

@@ -11,12 +11,12 @@ namespace TddXt.SimpleNlp
       _tokens = tokens;
     }
 
-    public void PartitionBasedOn(string pattern)
+    public void PartitionBasedOn(EntityForm entityForm)
     {
       var newTokens = new List<string>();
       foreach (var token in _tokens)
       {
-        var strings = token.SplitAndKeep(pattern);
+        var strings = token.SplitAndKeep(entityForm.ToString());
         newTokens.AddRange(strings);
       }
 

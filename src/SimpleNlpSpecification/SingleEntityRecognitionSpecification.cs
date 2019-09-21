@@ -50,7 +50,7 @@ namespace SimpleNlpSpecification
       var result1 = model.Recognize("steel");
 
       //THEN
-      result1.ShouldContainOnly("PLATE", "plate");
+      result1.ShouldContainOnly("PLATE", "steel", "plate");
     }
 
     [Fact]
@@ -106,11 +106,41 @@ namespace SimpleNlpSpecification
 
       result.Entities.Should().BeEquivalentTo(new []
       {
-        new RecognizedEntity(EntityName.Value("digit"), "1"), 
-        new RecognizedEntity(EntityName.Value("digit"), "2"), 
-        new RecognizedEntity(EntityName.Value("digit"), "3"), 
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("digit"), EntityForm.Value("1")), 
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("digit"), EntityForm.Value("2")),
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("digit"), EntityForm.Value("3")), 
       }, options => options.WithStrictOrdering());
     }
 
+    [Fact]
+    public void ShouldThrowExceptionWhenAddingEntityWithAlreadyExistingCanonicalForm()
+    {
+      //GIVEN
+      var model = new RecognitionModel();
+      model.AddEntity("YES", "yes");
+      
+      //WHEN - THEN
+      model.Invoking(m => m.AddEntity("YES_PLEASE", "Yes"))
+        .Should().Throw<ConflictingEntityException>()
+        .WithMessage("The phrase 'yes' cannot be added for the entity 'YES_PLEASE', " +
+                     "because it is already present for entity 'YES', which would be matched earlier");
+    }
+    
+    [Fact]
+    public void ShouldThrowExceptionWhenAddingEntityWithAlreadyExistingSynonym()
+    {
+      //GIVEN
+      var model = new RecognitionModel();
+      model.AddEntity("YES", "yes");
+      
+      //WHEN - THEN
+      model.Invoking(m => m.AddEntity("YES_PLEASE", "yes, please", new []{"YES"}))
+        .Should().Throw<ConflictingEntityException>()
+        .WithMessage("The phrase 'yes' cannot be added for the entity 'YES_PLEASE', " +
+                     "because it is already present for entity 'YES', which would be matched earlier");
+    }
+
+
   }
+
 }

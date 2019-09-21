@@ -6,11 +6,20 @@ namespace SimpleNlpSpecification
 {
   public static class EntityExtensions
   {
-    public static void ShouldContainOnly(this RecognitionResult result1, string entityName, string entityValue)
+    public static void ShouldContainOnly(this RecognitionResult result, string entityName, string entityValue)
     {
-      result1.Entities.Should().HaveCount(1);
-      result1.Entities.Single().Should().Be(
-        RecognizedEntity.Value(EntityName.Value(entityName), entityValue));
+      ShouldContainOnly(result, entityName, entityValue, entityValue);
+    }
+
+    public static void ShouldContainOnly(this RecognitionResult result, string entityName, string entityValue,
+      string canonicalForm)
+    {
+      result.Entities.Should().BeEquivalentTo(
+        new[]
+        {
+          RecognizedEntity.Value(EntityName.Value(entityName), EntityForm.Value(entityValue), EntityForm.Value(canonicalForm))
+        },
+        options => options.WithStrictOrdering());
     }
   }
 }

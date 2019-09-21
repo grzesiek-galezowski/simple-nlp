@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace TddXt.SimpleNlp
@@ -10,14 +11,19 @@ namespace TddXt.SimpleNlp
     private readonly List<EntitySpecification> _entitySpecifications = new List<EntitySpecification>();
     private readonly List<IntentSpecification> _intentSpecifications = new List<IntentSpecification>();
 
-    public void AddEntity(EntityName entityName, string value)
+    public void AddEntity(EntityName entityName, EntityForm canonicalForm)
     {
-      _entitySpecifications.Add(new EntitySpecification(entityName, value, new string[] {}));
+      AddEntity(entityName, canonicalForm, new EntityForm[]{ });
     }
 
-    public void AddEntity(EntityName entityName, string value, string[] synonyms)
+    public void AddEntity(EntityName entityName, EntityForm canonicalForm, EntityForm[] otherForms)
     {
-      _entitySpecifications.Add(new EntitySpecification(entityName, value, synonyms));
+      foreach (var entitySpecification in _entitySpecifications)
+      {
+        entitySpecification.AssertDoesNotConflictWith(entityName, canonicalForm, otherForms);
+      }
+
+      _entitySpecifications.Add(new EntitySpecification(entityName, canonicalForm, otherForms));
     }
 
     public void AddIntent(string intentName, IEnumerable<EntityName> entityNames)
