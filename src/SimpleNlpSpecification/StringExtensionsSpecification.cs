@@ -10,6 +10,8 @@ namespace SimpleNlpSpecification
     public void ShouldTokenizeStrings()
     {
       EntityForm.Value("a").Tokenize("a b c").Should().BeEquivalentTo(new [] {"", "a", "b c"}, options => options.WithStrictOrdering());
+      EntityForm.Value("a").Tokenize("A B C").Should().BeEquivalentTo(new [] {"", "A", "B C"}, options => options.WithStrictOrdering());
+      EntityForm.Value("A").Tokenize("a b c").Should().BeEquivalentTo(new [] {"", "a", "b c"}, options => options.WithStrictOrdering());
       EntityForm.Value("b").Tokenize("a b c").Should().BeEquivalentTo(new [] {"a", "b", "c"}, options => options.WithStrictOrdering());
       EntityForm.Value("c").Tokenize("a b c").Should().BeEquivalentTo(new [] {"a b", "c", ""}, options => options.WithStrictOrdering());
       EntityForm.Value("a").Tokenize("a").Should().BeEquivalentTo(new [] {"", "a", ""}, options => options.WithStrictOrdering());
