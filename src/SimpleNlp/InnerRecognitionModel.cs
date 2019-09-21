@@ -28,6 +28,11 @@ namespace TddXt.SimpleNlp
 
     public void AddIntent(string intentName, IEnumerable<EntityName> entityNames)
     {
+      foreach (var intentSpecification in _intentSpecifications)
+      {
+        intentSpecification.AssertDoesNotConflictWith(intentName, entityNames);
+      }
+
       _intentSpecifications.Add(new IntentSpecification(intentName, entityNames));
     }
 

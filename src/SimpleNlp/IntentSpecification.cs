@@ -18,5 +18,13 @@ namespace TddXt.SimpleNlp
     {
       return _entityNames.All(name => recognizedEntities.Select(e => e.Entity).Contains(name));
     }
+
+    public void AssertDoesNotConflictWith(string intentName, IEnumerable<EntityName> entityNames)
+    {
+      if(_entityNames.All(entityNames.Contains))
+      {
+        throw new ConflictingIntentException(intentName, IntentName);
+      }
+    }
   }
 }

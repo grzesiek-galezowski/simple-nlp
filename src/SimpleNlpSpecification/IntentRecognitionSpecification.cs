@@ -76,21 +76,35 @@ namespace SimpleNlpSpecification
     }
 
     [Fact]
-    public void ShouldReturnFirstExactlyMatchedIntent() //bug remove?
+    public void ShouldAllowAddingWiderMatchingIntentAfterMoreNarrowMatching()
     {
       //GIVEN
       var model = new RecognitionModel();
-      
+
       model.AddEntity("YES", "yes");
       model.AddEntity("PLEASE", "please");
-      model.AddIntent("INTENT_YES1", new[] { "YES", "PLEASE"});
-      model.AddIntent("INTENT_YES2", new[] { "YES", "PLEASE"});
+      model.AddIntent("INTENT1", new[] { "YES", "PLEASE" });
+      
+      //WHEN - THEN
+      model.Invoking(m => m.AddIntent("INTENT2", new[] { "YES" })).Should().NotThrow();
+    }
 
-      //WHEN
-      var recognitionResult = model.Recognize("yes, please");
+    //bug one more scenario - with more entities but later
+    [Fact]
+    public void ShouldThrowWhenRegisteringIntentWithTheSameEntities() 
+    {
+      //GIVEN
+      var model = new RecognitionModel();
 
-      //THEN
-      recognitionResult.TopIntent.Should().Be("INTENT_YES1");
+      model.AddEntity("YES", "yes");
+      model.AddEntity("PLEASE", "please");
+      model.AddIntent("INTENT1", new[] { "YES", "PLEASE" });
+
+      //WHEN - THEN
+      model.Invoking(m => m.AddIntent("INTENT2", new[] { "YES", "PLEASE" }))
+        .Should().Throw<ConflictingIntentException>()
+        .WithMessage("All the phrases matched by 'INTENT2' will be matched by earlier by 'INTENT1'");
+
     }
 
     [Fact]
