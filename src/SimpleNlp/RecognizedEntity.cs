@@ -36,7 +36,7 @@ namespace TddXt.SimpleNlp
 
     public override string ToString()
     {
-      return $"{nameof(Entity)}: {Entity}, {nameof(RecognizedValue)}: {RecognizedValue}";
+      return $"{nameof(RecognizedValue)}: {RecognizedValue}, {nameof(CanonicalForm)}: {CanonicalForm}, {nameof(Entity)}: {Entity}";
     }
 
 

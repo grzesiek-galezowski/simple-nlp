@@ -26,5 +26,26 @@ namespace SimpleNlpSpecification
       retrievedRecognizedValue.Should().Be(recognizedValue);
       retrievedCanonicalForm.Should().Be(canonicalForm);
     }
+
+
+    [Fact]
+    public void ShouldIncludeItsDataInItsStringRepresentation()
+    {
+      //GIVEN
+      var entityName = Any.Instance<EntityName>();
+      var recognizedValue = Any.Instance<EntityForm>();
+      var canonicalForm = Any.Instance<EntityForm>();
+      var recognizedEntity = RecognizedEntity.Value(entityName, recognizedValue, canonicalForm);
+
+      //WHEN
+      var stringRepresentation = recognizedEntity.ToString();
+
+      //THEN
+      stringRepresentation.Should()
+        .ContainAll(
+          entityName.ToString(), 
+          recognizedValue.ToString(), 
+          canonicalForm.ToString());
+    }
   }
 }
