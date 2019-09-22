@@ -89,9 +89,8 @@ namespace SimpleNlpSpecification
       model.Invoking(m => m.AddIntent("INTENT2", new[] { "YES" })).Should().NotThrow();
     }
 
-    //bug one more scenario - with more entities but later
     [Fact]
-    public void ShouldThrowWhenRegisteringIntentWithTheSameEntities() 
+    public void ShouldThrowWhenAddingIntentWithTheSameEntities() 
     {
       //GIVEN
       var model = new RecognitionModel();
@@ -104,7 +103,23 @@ namespace SimpleNlpSpecification
       model.Invoking(m => m.AddIntent("INTENT2", new[] { "YES", "PLEASE" }))
         .Should().Throw<ConflictingIntentException>()
         .WithMessage("All the phrases matched by 'INTENT2' will be matched by earlier by 'INTENT1'");
+    }
+    
+    [Fact]
+    public void ShouldThrowWhenAddingIntentWithTheSupersetOfEntitiesComparedToOneAddedBefore() 
+    {
+      //GIVEN
+      var model = new RecognitionModel();
 
+      model.AddEntity("YES", "yes");
+      model.AddEntity("PLEASE", "please");
+      model.AddEntity("DONE", "done");
+      model.AddIntent("INTENT1", new[] { "YES", "PLEASE" });
+
+      //WHEN - THEN
+      model.Invoking(m => m.AddIntent("INTENT2", new[] { "YES", "PLEASE", "DONE" }))
+        .Should().Throw<ConflictingIntentException>()
+        .WithMessage("All the phrases matched by 'INTENT2' will be matched by earlier by 'INTENT1'");
     }
 
     [Fact]
@@ -220,7 +235,6 @@ namespace SimpleNlpSpecification
       }, options => options.WithStrictOrdering());
     }
 
-    //TODO approximate matching
     //TODO Intents with counts on entites (e.g. ENTITY_X, AtLeast(1.Times()))
   }
 }

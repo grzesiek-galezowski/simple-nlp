@@ -49,5 +49,4 @@ namespace TddXt.SimpleNlp
       }
     }
   }
-  //BUG expose canonical form, but match synonym
 }
