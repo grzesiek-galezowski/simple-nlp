@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Value;
 
 namespace TddXt.SimpleNlp
@@ -28,15 +26,15 @@ namespace TddXt.SimpleNlp
     {
       yield return _value.ToLowerInvariant();
     }
-    public bool IsMatchedBy(string token)
+
+    public bool IsMatchedBy(TextToken token)
     {
-      return _value.Equals(token, StringComparison.InvariantCultureIgnoreCase);
+      return token.Matches(_value);
     }
 
-    public IEnumerable<string> Tokenize(string text)
+    public IEnumerable<TextToken> Tokenize(TextToken token)
     {
-      var forbiddenDelimiter = "[^0-9a-zA-Z'`]";
-      return Regex.Split(text, $"(?:{forbiddenDelimiter}|^)({this})(?:{forbiddenDelimiter}|$)", RegexOptions.IgnoreCase);
+      return token.Split(_value, "[^0-9a-zA-Z'`]");
     }
   }
 }

@@ -1,3 +1,4 @@
+using System.Linq;
 using FluentAssertions;
 using TddXt.SimpleNlp;
 using Xunit;
@@ -139,6 +140,23 @@ namespace SimpleNlpSpecification
         .WithMessage("The phrase 'yes' cannot be added for the entity 'YES_PLEASE', " +
                      "because it is already present for entity 'YES', which would be matched earlier");
     }
+    
+    [Fact]
+    public void ShouldRecognizeMoreNarrowIntentIfItIsTheFirstOne()
+    {
+      //GIVEN
+      var model = new RecognitionModel();
+      model.AddEntity("YES SIR", "yes sir");
+      model.AddEntity("YES", "yes");
+      
+      //WHEN
+      var recognitionResult = model.Recognize("Yes sir");
+
+      //THEN
+      recognitionResult.Entities.First().Entity.Should().Be(EntityName.Value("YES SIR"));
+    }
+
+
 
 
   }

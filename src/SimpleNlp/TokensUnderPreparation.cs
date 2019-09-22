@@ -4,16 +4,16 @@ namespace TddXt.SimpleNlp
 {
   public class TokensUnderPreparation
   {
-    private string[] _tokens;
+    private TextToken[] _tokens;
 
-    public TokensUnderPreparation(string[] tokens)
+    public TokensUnderPreparation(TextToken textToken)
     {
-      _tokens = tokens;
+      _tokens = new [] {textToken};
     }
 
     public void PartitionBasedOn(EntityForm entityForm)
     {
-      var newTokens = new List<string>();
+      var newTokens = new List<TextToken>();
       foreach (var token in _tokens)
       {
         var strings = entityForm.Tokenize(token);
@@ -25,7 +25,7 @@ namespace TddXt.SimpleNlp
 
     public static TokensUnderPreparation CreateInitial(string text)
     {
-      return new TokensUnderPreparation(new[] {text});
+      return new TokensUnderPreparation(TextToken.NotMatched(text));
     }
 
     public IEnumerable<RecognizedEntity> TranslateToEntitiesUsing(IEnumerable<EntitySpecification> entitySpecifications)

@@ -25,7 +25,7 @@ namespace TddXt.SimpleNlp
       }
     }
 
-    public void TryToMatch(string token, List<RecognizedEntity> recognizedEntities)
+    public void TryToMatch(TextToken token, List<RecognizedEntity> recognizedEntities)
     {
       foreach (var synonym in _allForms)
       {
