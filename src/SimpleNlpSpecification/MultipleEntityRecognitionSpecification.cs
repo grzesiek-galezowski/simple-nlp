@@ -2,7 +2,7 @@ using FluentAssertions;
 using TddXt.SimpleNlp;
 using Xunit;
 
-namespace SimpleNlpSpecification
+namespace TddXt.SimpleNlpSpecification
 {
   public class MultipleEntityRecognitionSpecification
   {

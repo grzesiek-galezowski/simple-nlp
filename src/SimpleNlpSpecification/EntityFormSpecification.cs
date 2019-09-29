@@ -1,12 +1,12 @@
-﻿using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using TddXt.SimpleNlp;
+using TddXt.XFluentAssertRoot;
 using Xunit;
 using static TddXt.SimpleNlp.TextToken;
 
-namespace SimpleNlpSpecification
+namespace TddXt.SimpleNlpSpecification
 {
-  public class StringExtensionsSpecification
+  public class EntityFormSpecification
   {
     [Fact]
     public void ShouldTokenizeStrings()
@@ -35,9 +35,10 @@ namespace SimpleNlpSpecification
         .Should().BeEquivalentTo(new[] { NotMatched(""), Matched("driver's"), NotMatched("license")}, options => options.WithStrictOrdering());
     }
 
-    private static TextToken[] Tokens(params string[] strings)
+    [Fact]
+    public void ShouldHaveValueSemantics()
     {
-      return strings.Select(s => Matched(s)).ToArray();
+      typeof(EntityForm).Should().HaveValueSemantics();
     }
   }
 }

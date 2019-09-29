@@ -6,7 +6,7 @@ using Value;
 
 namespace TddXt.SimpleNlp
 {
-  public class TextToken : ValueType<TextToken>
+  public sealed class TextToken : ValueType<TextToken>
   {
     public static TextToken NotMatched(string text)
     {

@@ -1,9 +1,10 @@
 ﻿using FluentAssertions;
 using TddXt.SimpleNlp;
+using TddXt.XFluentAssertRoot;
 using Xunit;
 using static TddXt.AnyRoot.Root;
 
-namespace SimpleNlpSpecification
+namespace TddXt.SimpleNlpSpecification
 {
   public class RecognizedEntitySpecification
   {
@@ -46,6 +47,12 @@ namespace SimpleNlpSpecification
           entityName.ToString(), 
           recognizedValue.ToString(), 
           canonicalForm.ToString());
+    }
+
+    [Fact]
+    public void ShouldHaveValueSemantics()
+    {
+      typeof(RecognizedEntity).Should().HaveValueSemantics();
     }
   }
 }

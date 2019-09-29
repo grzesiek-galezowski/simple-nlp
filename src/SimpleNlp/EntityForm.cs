@@ -3,7 +3,7 @@ using Value;
 
 namespace TddXt.SimpleNlp
 {
-  public class EntityForm : ValueType<EntityForm>
+  public sealed class EntityForm : ValueType<EntityForm>
   {
     private readonly string _value;
 

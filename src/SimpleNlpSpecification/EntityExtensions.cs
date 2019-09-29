@@ -1,8 +1,7 @@
-using System.Linq;
 using FluentAssertions;
 using TddXt.SimpleNlp;
 
-namespace SimpleNlpSpecification
+namespace TddXt.SimpleNlpSpecification
 {
   public static class EntityExtensions
   {

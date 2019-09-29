@@ -3,7 +3,7 @@ using Value;
 
 namespace TddXt.SimpleNlp
 {
-  public class RecognizedEntity : ValueType<RecognizedEntity>
+  public sealed class RecognizedEntity : ValueType<RecognizedEntity>
   {
 
     public RecognizedEntity(EntityName entityName, EntityForm recognizedValue, EntityForm canonicalForm)

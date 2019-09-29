@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using TddXt.SimpleNlp;
 using Xunit;
 
-namespace SimpleNlpSpecification
+namespace TddXt.SimpleNlpSpecification
 {
   public class IntentRecognitionSpecification
   {
