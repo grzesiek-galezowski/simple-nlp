@@ -12,27 +12,27 @@ namespace TddXt.SimpleNlpSpecification
     public void ShouldTokenizeStrings()
     {
       EntityForm.Value("a").Tokenize(NotMatched("a b c"))
-        .Should().BeEquivalentTo(new [] {NotMatched(""), Matched("a"), NotMatched("b c")}, options => options.WithStrictOrdering());
+        .Should().Equal(NotMatched(""), Matched("a"), NotMatched("b c"));
       EntityForm.Value("a").Tokenize(NotMatched("A B C"))
-        .Should().BeEquivalentTo(new [] {NotMatched(""), Matched("A"), NotMatched("B C")}, options => options.WithStrictOrdering());
+        .Should().Equal(NotMatched(""), Matched("A"), NotMatched("B C"));
       EntityForm.Value("A").Tokenize(NotMatched("a b c"))
-        .Should().BeEquivalentTo(new[] { NotMatched(""), Matched("a"), NotMatched("b c")}, options => options.WithStrictOrdering());
+        .Should().Equal(NotMatched(""), Matched("a"), NotMatched("b c"));
       EntityForm.Value("b").Tokenize(NotMatched("a b c"))
-        .Should().BeEquivalentTo(new[] { NotMatched("a"), Matched("b"), NotMatched("c")}, options => options.WithStrictOrdering());
+        .Should().Equal(NotMatched("a"), Matched("b"), NotMatched("c"));
       EntityForm.Value("c").Tokenize(NotMatched("a b c"))
-        .Should().BeEquivalentTo(new[] { NotMatched("a b"), Matched("c"), NotMatched("")}, options => options.WithStrictOrdering());
+        .Should().Equal(NotMatched("a b"), Matched("c"), NotMatched(""));
       EntityForm.Value("a").Tokenize(NotMatched("a"))
-        .Should().BeEquivalentTo(new[] { NotMatched(""), Matched("a"), NotMatched("")}, options => options.WithStrictOrdering());
+        .Should().Equal(NotMatched(""), Matched("a"), NotMatched(""));
       EntityForm.Value("a").Tokenize(NotMatched("abc"))
-        .Should().BeEquivalentTo(new[] { NotMatched("abc")}, options => options.WithStrictOrdering());
+        .Should().Equal(NotMatched("abc"));
       EntityForm.Value("b").Tokenize(NotMatched("abc"))
-        .Should().BeEquivalentTo(new[] { NotMatched("abc")}, options => options.WithStrictOrdering());
+        .Should().Equal(NotMatched("abc"));
       EntityForm.Value("c").Tokenize(NotMatched("abc"))
-        .Should().BeEquivalentTo(new[] { NotMatched("abc")}, options => options.WithStrictOrdering());
+        .Should().Equal(NotMatched("abc"));
       EntityForm.Value("").Tokenize(NotMatched(""))
-        .Should().BeEquivalentTo(new[] { Matched(""), Matched(""), Matched("") }, options => options.WithStrictOrdering());
+        .Should().Equal(Matched(""), Matched(""), Matched(""));
       EntityForm.Value("driver's").Tokenize(NotMatched("driver's license"))
-        .Should().BeEquivalentTo(new[] { NotMatched(""), Matched("driver's"), NotMatched("license")}, options => options.WithStrictOrdering());
+        .Should().Equal(NotMatched(""), Matched("driver's"), NotMatched("license"));
     }
 
     [Fact]

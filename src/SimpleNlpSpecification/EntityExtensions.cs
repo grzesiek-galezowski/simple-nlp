@@ -13,12 +13,11 @@ namespace TddXt.SimpleNlpSpecification
     public static void ShouldContainOnly(this RecognitionResult result, string entityName, string entityValue,
       string canonicalForm)
     {
-      result.Entities.Should().BeEquivalentTo(
+      result.Entities.Should().Equal(
         new[]
         {
           RecognizedEntity.Value(EntityName.Value(entityName), EntityForm.Value(entityValue), EntityForm.Value(canonicalForm))
-        },
-        options => options.WithStrictOrdering());
+        });
     }
   }
 }

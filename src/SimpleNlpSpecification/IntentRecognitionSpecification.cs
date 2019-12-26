@@ -206,33 +206,44 @@ namespace TddXt.SimpleNlpSpecification
 
       //THEN
       recognitionResult1.TopIntent.Should().Be("BORROW_BOOK");
-      recognitionResult1.Entities.Should().BeEquivalentTo(new []
+      recognitionResult1.Entities.Should().Equal(new []
       {
         RecognizedEntity.ByCanonicalForm(EntityName.Value(borrowEntity), EntityForm.Value("borrow")), 
         RecognizedEntity.ByCanonicalForm(EntityName.Value(bookEntity), EntityForm.Value("book")), 
-      }, options => options.WithStrictOrdering());
+      });
 
       recognitionResult2.TopIntent.Should().Be("RETURN_BOOK");
-      recognitionResult2.Entities.Should().BeEquivalentTo(new []
+      recognitionResult2.Entities.Should().Equal(new []
       {
         RecognizedEntity.ByCanonicalForm(EntityName.Value(returnEntity), EntityForm.Value("return")), 
         RecognizedEntity.ByCanonicalForm(EntityName.Value(bookEntity), EntityForm.Value("book")), 
-      }, options => options.WithStrictOrdering());
+      });
       recognitionResult3.TopIntent.Should().Be("BORROW_FILM");
-      recognitionResult3.Entities.Should().BeEquivalentTo(new []
+      recognitionResult3.Entities.Should().Equal(new []
       {
         RecognizedEntity.ByCanonicalForm(EntityName.Value(borrowEntity), EntityForm.Value("borrow")), 
         RecognizedEntity.ByCanonicalForm(EntityName.Value(filmEntity), EntityForm.Value("film")), 
-      }, options => options.WithStrictOrdering());
+      });
 
       recognitionResult4.TopIntent.Should().Be("RETURN_FILM");
-      recognitionResult4.Entities.Should().BeEquivalentTo(new []
-      {
-        RecognizedEntity.Value(EntityName.Value(returnEntity), EntityForm.Value("returning"), EntityForm.Value("return")), 
-        RecognizedEntity.Value(EntityName.Value(filmEntity), EntityForm.Value("movie"), EntityForm.Value("film")), 
-      }, options => options.WithStrictOrdering());
+      recognitionResult4.Entities.Should().Equal(
+        RecognizedEntity.Value(
+          EntityName.Value(returnEntity), 
+          EntityForm.Value("returning"), 
+          EntityForm.Value("return")), 
+        RecognizedEntity.Value(
+          EntityName.Value(filmEntity), 
+          EntityForm.Value("movie"), 
+          EntityForm.Value("film")));
     }
 
-    //TODO Intents with counts on entites (e.g. ENTITY_X, AtLeast(1.Times()))
+    //TODO Intents with counts on entites (e.g. ENTITY_X, ENTITY_X, options => options.ExactCount())
+    //TODO Intents with ordered entites (e.g. ENTITY_X, ENTITY_X, options => options.Ordered())
+    //TODO Intents with excluded entites (e.g. ENTITY_X, ENTITY_X, options => options.Exclude(ENTITY_Y))
+  }
+
+  public class OrderedIntentRecognition
+  {
+
   }
 }

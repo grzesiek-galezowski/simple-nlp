@@ -105,12 +105,10 @@ namespace TddXt.SimpleNlpSpecification
 
       var result = model.Recognize("123");
 
-      result.Entities.Should().BeEquivalentTo(new []
-      {
+      result.Entities.Should().BeEquivalentTo(
         RecognizedEntity.ByCanonicalForm(EntityName.Value("digit"), EntityForm.Value("1")), 
-        RecognizedEntity.ByCanonicalForm(EntityName.Value("digit"), EntityForm.Value("2")),
-        RecognizedEntity.ByCanonicalForm(EntityName.Value("digit"), EntityForm.Value("3")), 
-      }, options => options.WithStrictOrdering());
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("digit"), EntityForm.Value("2")), 
+        RecognizedEntity.ByCanonicalForm(EntityName.Value("digit"), EntityForm.Value("3")));
     }
 
     [Fact]
