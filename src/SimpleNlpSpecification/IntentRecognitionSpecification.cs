@@ -241,9 +241,4 @@ namespace TddXt.SimpleNlpSpecification
     //TODO Intents with ordered entites (e.g. ENTITY_X, ENTITY_X, options => options.Ordered())
     //TODO Intents with excluded entites (e.g. ENTITY_X, ENTITY_X, options => options.Exclude(ENTITY_Y))
   }
-
-  public class OrderedIntentRecognition
-  {
-
-  }
 }

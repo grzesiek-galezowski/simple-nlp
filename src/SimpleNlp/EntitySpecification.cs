@@ -48,5 +48,12 @@ namespace TddXt.SimpleNlp
         }
       }
     }
+
+    public override string ToString()
+    {
+      return $"{nameof(_entityName)}: {_entityName}, " +
+             $"{nameof(_canonicalForm)}: {_canonicalForm}, " +
+             $"{nameof(_allForms)}: {string.Join(", ", _allForms)}";
+    }
   }
 }
